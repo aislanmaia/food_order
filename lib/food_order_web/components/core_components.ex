@@ -267,6 +267,8 @@ defmodule FoodOrderWeb.CoreComponents do
       <.input field={@form[:email]} type="email" />
       <.input name="my-input" errors={["oh no!"]} />
   """
+  alias Phoenix.HTML.Form
+
   attr :id, :any, default: nil
   attr :name, :any
   attr :label, :string, default: nil
@@ -304,7 +306,7 @@ defmodule FoodOrderWeb.CoreComponents do
   def input(%{type: "checkbox"} = assigns) do
     assigns =
       assign_new(assigns, :checked, fn ->
-        Phoenix.HTML.Form.normalize_value("checkbox", assigns[:value])
+        Form.normalize_value("checkbox", assigns[:value])
       end)
 
     ~H"""
