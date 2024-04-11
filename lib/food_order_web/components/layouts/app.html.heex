@@ -1,7 +1,9 @@
 <div class="mx-auto max-w-7xl">
   <.flash_group flash={@flash} />
   <nav class="flex items-center justify-between py-4">
-    <div id="logo">logo</div>
+    <div id="logo">
+      <img src={~p"/images/logo.png"} alt="" class="w-16 h-16" />
+    </div>
     <ul id="menu" class="flex items-center">
       <li class="ml-6 cursor-pointer">
         Admin Products
@@ -18,7 +20,7 @@
       <li class="ml-6 cursor-pointer">
         Log Out
       </li>
-      <li class="flex ml-6 p-4 items-center bg-yellow-500 rounded-full text-neutral-100 cursor-pointer group hover:text-yellow-500 hover:bg-yellow-100 transition-all">
+      <li class="flex ml-6 p-4 items-center bg-orange-500 rounded-full text-neutral-100 cursor-pointer group hover:text-orange-500 hover:bg-orange-100 transition-all">
         <span class="text-sm">0</span>
         <.icon name="hero-shopping-cart-solid" class="h-5 w-5" />
       </li>
