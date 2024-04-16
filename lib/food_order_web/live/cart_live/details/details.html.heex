@@ -5,27 +5,42 @@
   </div>
 
   <div>
-    <div :for={_ <- 1..10} class="flex items-center my-8 shadow-lg p-2 hover:bg-neutral-100">
-      <img src={~p"/images/product_1.jpeg"} alt="" class="h-16 w-16 rounded-full" />
+    <div
+      :for={_ <- 1..4}
+      data-role="item"
+      class="flex items-center my-8 shadow-lg p-2 hover:bg-neutral-100"
+    >
+      <img
+        data-role="item-image"
+        src={~p"/images/product_1.jpeg"}
+        alt=""
+        class="h-16 w-16 rounded-full"
+      />
 
       <div class="flex-1 ml-4">
         <h1>Pizza</h1>
         <span>Small</span>
       </div>
 
-      <div class="flex-1">
+      <div class="flex-1" data-role="quantity">
         <div class="flex items-center gap-x-2">
-          <button class="h-6 w-6 rounded-full text-white font-bold bg-orange-500 hover:bg-orange-300">
+          <button
+            data-role="dec"
+            class="h-6 w-6 rounded-full text-white font-bold bg-orange-500 hover:bg-orange-300"
+          >
             -
           </button>
           <span>10 Item(s)</span>
-          <button class="h-6 w-6 rounded-full text-white font-bold bg-orange-500 hover:bg-orange-300">
+          <button
+            data-role="add"
+            class="h-6 w-6 rounded-full text-white font-bold bg-orange-500 hover:bg-orange-300"
+          >
             +
           </button>
         </div>
       </div>
 
-      <div class="flex flex-1 items-center">
+      <div class="flex flex-1 items-center" data-role="total-item">
         <span class="font-bold text-lg">$100</span>
         <button class="ml-2 w-6 h-6 rounded-full text-white bg-orange-500 font-bold hover:bg-orange-300">
           &times
@@ -36,7 +51,7 @@
 
   <hr />
 
-  <div class="text-right py-4">
+  <div class="text-right py-4" data-role="total-cart">
     <div>
       <span class="text-lg">Total Amount:</span>
       <span class="text-2xl font-bold ml-2">$1000</span>

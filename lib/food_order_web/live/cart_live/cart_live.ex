@@ -3,15 +3,15 @@ defmodule FoodOrderWeb.CartLive do
   alias FoodOrderWeb.CartLive.Details
 
   def mount(_, _, socket) do
-    {:ok, assign(socket, total_qty: Enum.random([0, 1]))}
+    {:ok, assign(socket, total_qty: 0)}
   end
 
   def empty_cart(assigns) do
     ~H"""
     <div class="py-16 container mx-auto text-center">
-      <hi class="text-3xl font-bold mb-2">Your Cart is empty!</hi>
+      <h1 class="text-3xl font-bold mb-2">Your Cart is empty!</h1>
       <p class="text-neutral-500 text-lg mb-12">
-        You probably haven't ordered a food yet. <br /> To ordeer a good food, go to the main page.
+        You probably haven't ordered a food yet. <br /> To order a good food, go to the main page.
       </p>
       <Heroicons.Solid.shopping_bag class="w-20 mx-auto text-orange-500 stroke-1" />
       <a
