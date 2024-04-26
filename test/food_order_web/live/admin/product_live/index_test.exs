@@ -38,8 +38,29 @@ defmodule FoodOrderWeb.Admin.ProductLive.IndexTest do
       assert view |> has_element?("#new-product-modal")
 
       assert view
-             |> form("#product-form", product: %{})
-             |> render_change() =~ "be blank"
+             |> form("#product-form",
+               product: %{
+                 name: "Product 1 name",
+                 description: "Product 1 description",
+                 price: "11"
+               }
+             )
+             |> render_change()
+
+      {:ok, _view, html} =
+        view
+        |> form("#product-form",
+          product: %{
+            name: "Product 1 name",
+            description: "Product 1 description",
+            price: "11"
+          }
+        )
+        |> render_submit()
+        |> follow_redirect(conn, ~p"/admin/products")
+
+      assert html =~ "Product created successfully"
+      assert html =~ "Product 1 name"
     end
   end
 
