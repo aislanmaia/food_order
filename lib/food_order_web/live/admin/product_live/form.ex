@@ -4,7 +4,6 @@ defmodule FoodOrderWeb.Admin.ProductLive.Form do
 
   def update(%{product: product} = assigns, socket) do
     changeset = Products.change_product(product)
-
     {:ok, socket |> assign(assigns) |> assign(changeset: to_form(changeset))}
   end
 
@@ -20,10 +19,10 @@ defmodule FoodOrderWeb.Admin.ProductLive.Form do
       >
         <.input field={@changeset[:name]} label="Name" />
         <.input field={@changeset[:description]} type="textarea" label="Description" />
-        <.input field={@changeset[:price]} type="number" label="Price" />
+        <.input field={@changeset[:price]} label="Price" />
 
         <:actions>
-          <.button phx-disable-with="Saving...">Create Product</.button>
+          <.button phx-disable-with="Saving...">Save Product</.button>
         </:actions>
       </.simple_form>
     </div>
@@ -41,11 +40,27 @@ defmodule FoodOrderWeb.Admin.ProductLive.Form do
   end
 
   def handle_event("save", %{"product" => product_params}, socket) do
-    case Products.create_product(product_params) do
+    save(socket, socket.assigns.action, product_params)
+  end
+
+  defp save(socket, :new, product_params) do
+    action_result = Products.create_product(product_params)
+    message = "Product created successfully"
+    perform(socket, action_result, message)
+  end
+
+  defp save(socket, :edit, product_params) do
+    action_result = Products.update_product(socket.assigns.product, product_params)
+    message = "Product updated successfully"
+    perform(socket, action_result, message)
+  end
+
+  defp perform(socket, action_result, message) do
+    case action_result do
       {:ok, _} ->
         socket =
           socket
-          |> put_flash(:info, "Product created successfully")
+          |> put_flash(:info, message)
           |> push_navigate(to: socket.assigns.navigate)
 
         {:noreply, socket}

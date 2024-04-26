@@ -75,6 +75,48 @@ defmodule FoodOrderWeb.Admin.ProductLive.IndexTest do
 
       refute has_element?(view, product_id_attribute)
     end
+
+    test "updates product in listing", %{conn: conn, product: product} do
+      {:ok, view, _html} = live(conn, ~p"/admin/products")
+
+      assert view
+             |> element("[data-id=product-edit-btn-#{product.id}}]", "Edit")
+             |> render_click()
+
+      assert_patch(view, ~p"/admin/products/#{product.id}/edit")
+
+      {:ok, _, html} =
+        view
+        |> form("#product-form", product: %{name: "pumpkin name updated"})
+        |> render_submit()
+        |> follow_redirect(conn, ~p"/admin/products")
+
+      assert html =~ "Product updated successfully"
+      assert html =~ "pumpkin name updated"
+    end
+
+    test "updates product within modal", %{conn: conn, product: product} do
+      {:ok, view, _html} = live(conn, ~p"/admin/products/#{product}")
+
+      assert view
+             |> element("[data-id=header-action-edit-btn]", "Edit Product")
+             |> render_click() =~ "Edit Product"
+
+      assert_patch(view, ~p"/admin/products/#{product.id}/show/edit")
+
+      assert view
+             |> form("#product-form", product: %{description: nil})
+             |> render_submit() =~ "be blank"
+
+      {:ok, _, html} =
+        view
+        |> form("#product-form", product: %{description: "pumpkin description updated"})
+        |> render_submit()
+        |> follow_redirect(conn, ~p"/admin/products/#{product}")
+
+      assert html =~ "Product updated successfully"
+      assert html =~ "pumpkin description updated"
+    end
   end
 
   def create_product(_) do
