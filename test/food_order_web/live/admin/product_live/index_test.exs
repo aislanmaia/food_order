@@ -27,6 +27,20 @@ defmodule FoodOrderWeb.Admin.ProductLive.IndexTest do
                Atom.to_string(product.size)
              )
     end
+
+    test "add new product", %{conn: conn} do
+      {:ok, view, _html} = live(conn, ~p"/admin/products")
+
+      assert view |> element("header>div>a", "New Product") |> render_click()
+
+      assert_patch(view, ~p"/admin/products/new")
+
+      assert view |> has_element?("#new-product-modal")
+
+      assert view
+             |> form("#product-form", product: %{})
+             |> render_change() =~ "be blank"
+    end
   end
 
   def create_product(_) do
