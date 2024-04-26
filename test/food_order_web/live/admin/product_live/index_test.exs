@@ -62,6 +62,19 @@ defmodule FoodOrderWeb.Admin.ProductLive.IndexTest do
       assert html =~ "Product created successfully"
       assert html =~ "Product 1 name"
     end
+
+    test "delete product", %{conn: conn, product: product} do
+      {:ok, view, _html} = live(conn, ~p"/admin/products")
+      product_id_attribute = "#products-#{product.id}"
+
+      assert has_element?(view, product_id_attribute)
+
+      view
+      |> element("[data-id=product-delete-btn-#{product.id}}]", "Delete")
+      |> render_click()
+
+      refute has_element?(view, product_id_attribute)
+    end
   end
 
   def create_product(_) do
