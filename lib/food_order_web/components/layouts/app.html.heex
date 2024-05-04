@@ -4,22 +4,43 @@
     <div id="logo">
       <img src={~p"/images/logo.png"} alt="" class="w-16 h-16" />
     </div>
-    <ul id="menu" class="flex items-center">
-      <li class="ml-6 cursor-pointer">
-        Admin Products
-      </li>
-      <li class="ml-6 cursor-pointer">
-        Admin Orders
-      </li>
-      <li class="ml-6 cursor-pointer">
-        My Orders
-      </li>
-      <li class="ml-6 cursor-pointer">
-        Settings
-      </li>
-      <li class="ml-6 cursor-pointer">
-        Log Out
-      </li>
+    <ul id="menu" class="relative z-10 flex items-center gap-4 px-4 sm:px-6 lg:px-8 justify-end">
+      <%= if @current_user do %>
+        <li class="ml-6 cursor-pointer">
+          Admin Products
+        </li>
+        <li class="ml-6 cursor-pointer">
+          Admin Orders
+        </li>
+        <li class="ml-6 cursor-pointer">
+          My Orders
+        </li>
+        <li class="ml-6 cursor-pointer">
+          <.link href={~p"/users/settings"} class="leading-6">
+            Settings
+          </.link>
+        </li>
+        <li class="ml-6 cursor-pointer">
+          <.link href={~p"/users/log_out"} method="delete" class="leading-6">
+            Log out
+          </.link>
+        </li>
+        <li class="text-[0.8125rem] leading-6 text-zinc-900">
+          <%= @current_user.email %>
+        </li>
+      <% else %>
+        <li class="ml-6 cursor-pointer">
+          <.link href={~p"/users/register"} class="leading-6">
+            Register
+          </.link>
+        </li>
+        <li class="ml-6 cursor-pointer">
+          <.link href={~p"/users/log_in"} class="leading-6">
+            Log in
+          </.link>
+        </li>
+      <% end %>
+
       <a
         href={~p"/cart/"}
         class="flex ml-6 p-4 items-center bg-orange-500 rounded-full text-neutral-100 cursor-pointer group hover:text-orange-500 hover:bg-orange-100 transition-all"
