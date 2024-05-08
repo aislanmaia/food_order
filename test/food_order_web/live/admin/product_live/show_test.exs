@@ -4,7 +4,7 @@ defmodule FoodOrderWeb.Admin.ProductLive.ShowTest do
   import FoodOrder.ProductsFixtures
 
   describe "Admin Product Show" do
-    setup [:create_product]
+    setup [:create_product, :register_and_log_in_user]
 
     test "show product", %{conn: conn, product: product} do
       {:ok, view, _html} = live(conn, ~p"/admin/products/#{product}")
