@@ -18,6 +18,9 @@ defmodule FoodOrderWeb.CoreComponents do
 
   alias Phoenix.LiveView.JS
   import FoodOrderWeb.Gettext
+  alias FoodOrderWeb.HeaderComponent
+
+  defdelegate navbar(assigns), to: HeaderComponent
 
   @doc """
   Renders a modal.
