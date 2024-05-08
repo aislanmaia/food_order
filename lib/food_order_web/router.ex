@@ -29,15 +29,6 @@ defmodule FoodOrderWeb.Router do
 
       live "/", PageLive, :index
       live "/cart", CartLive, :index
-
-      scope "/admin", Admin do
-        live "/products", ProductLive.Index, :index
-        live "/products/new", ProductLive.Index, :new
-        live "/products/:id/edit", ProductLive.Index, :edit
-
-        live "/products/:id", ProductLive.Show, :show
-        live "/products/:id/show/edit", ProductLive.Show, :edit
-      end
     end
   end
 
@@ -86,6 +77,15 @@ defmodule FoodOrderWeb.Router do
       on_mount: [{FoodOrderWeb.UserAuth, :ensure_authenticated}] do
       live "/users/settings", UserSettingsLive, :edit
       live "/users/settings/confirm_email/:token", UserSettingsLive, :confirm_email
+
+      scope "/admin", Admin do
+        live "/products", ProductLive.Index, :index
+        live "/products/new", ProductLive.Index, :new
+        live "/products/:id/edit", ProductLive.Index, :edit
+
+        live "/products/:id", ProductLive.Show, :show
+        live "/products/:id/show/edit", ProductLive.Show, :edit
+      end
     end
   end
 
