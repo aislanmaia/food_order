@@ -12,17 +12,20 @@ defmodule FoodOrderWeb.HeaderComponent do
       </div>
       <ul id="menu" class="relative z-10 flex items-center gap-4 px-4 sm:px-6 lg:px-8 justify-end">
         <%= if @current_user do %>
-          <li class="ml-6 cursor-pointer">
-            <.link href={~p"/admin/products"} class="leading-6">
-              Admin Products
-            </.link>
-          </li>
-          <li class="ml-6 cursor-pointer">
-            Admin Orders
-          </li>
-          <li class="ml-6 cursor-pointer">
-            My Orders
-          </li>
+          <%= if @current_user.role == :ADMIN do %>
+            <li class="ml-6 cursor-pointer">
+              <.link href={~p"/admin/products"} class="leading-6">
+                Admin Products
+              </.link>
+            </li>
+            <li class="ml-6 cursor-pointer">
+              Admin Orders
+            </li>
+          <% else %>
+            <li class="ml-6 cursor-pointer">
+              My Orders
+            </li>
+          <% end %>
           <li class="ml-6 cursor-pointer">
             <.link href={~p"/users/settings"} class="leading-6">
               Settings
