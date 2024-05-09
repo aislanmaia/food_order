@@ -4,7 +4,7 @@ defmodule FoodOrderWeb.Admin.ProductLive.IndexTest do
   import FoodOrder.ProductsFixtures
 
   describe "Admin Product Index" do
-    setup [:create_product, :register_and_log_in_user]
+    setup [:create_product, :register_and_log_in_admin_user]
 
     test "list products", %{conn: conn, product: product} do
       {:ok, view, _html} = live(conn, ~p"/admin/products")
