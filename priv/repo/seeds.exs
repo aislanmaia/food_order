@@ -1,4 +1,5 @@
 alias FoodOrder.Products
+alias FoodOrder.Accounts
 
 for _ <- 0..50,
     do:
@@ -9,3 +10,15 @@ for _ <- 0..50,
         size: Enum.random(["SMALL", "MEDIUM", "LARGE"]),
         image_url: "product_#{1..4 |> Enum.random()}.jpeg"
       })
+
+Accounts.register_user(%{
+  email: "admin@email.com",
+  password: "Admin1234567",
+  role: "ADMIN"
+})
+
+Accounts.register_user(%{
+  email: "user@email.com",
+  password: "User12345678",
+  role: "USER"
+})
